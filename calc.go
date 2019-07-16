@@ -15,7 +15,7 @@ var (
 	trades    = flag.String("trades", "trades.csv", "Trades CSV")
 	fee       = flag.Float64("fee", 0.000405-0.002, "Fee rate")
 	baseName  = flag.String("base", "ONE", "Name of the base currency")
-	quoteName = flag.String("quote", "BNB", "Name of the quote currency")
+	quoteName = flag.String("quote", "USDT", "Name of the quote currency")
 )
 
 func main() {
@@ -55,7 +55,7 @@ func main() {
 			deltaQuote -= (1.0 + *fee) * price * quantity
 		} else {
 			deltaBase -= quantity
-			deltaQuote += (1.0 + *fee) * price * quantity
+			deltaQuote += (1.0 - *fee) * price * quantity
 		}
 	}
 	effectiveDeltaQuote := deltaBase*finalPrice + deltaQuote
