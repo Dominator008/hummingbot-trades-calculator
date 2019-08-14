@@ -32,6 +32,7 @@ func main() {
 	var deltaBase float64
 	var deltaQuote float64
 	var finalPrice float64
+	var volume float64
 	for i, line := range lines {
 		if i == 0 {
 			continue
@@ -51,6 +52,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		volume += quantity
 		if isBuy {
 			deltaBase += quantity
 			deltaQuote -= (1.0 + *fee) * price * quantity
@@ -61,6 +63,7 @@ func main() {
 	}
 	effectiveDeltaQuote := deltaBase*finalPrice + deltaQuote
 	profitPercentage := effectiveDeltaQuote / math.Abs(deltaQuote) * 100
+	fmt.Printf("Volume: %.3f %s\n", volume, *baseName)
 	fmt.Printf("Delta base: %.3f %s\n", deltaBase, *baseName)
 	fmt.Printf("Delta quote: %.3f %s\n", deltaQuote, *quoteName)
 	fmt.Printf("Effective delta quote: %.3f %s\n", effectiveDeltaQuote, *quoteName)
