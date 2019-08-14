@@ -13,12 +13,13 @@ import (
 
 var (
 	trades    = flag.String("trades", "trades.csv", "Trades CSV")
-	fee       = flag.Float64("fee", 0.000405-0.002, "Fee rate")
+	fee       = flag.Float64("fee", 0.000405, "Fee rate")
 	baseName  = flag.String("base", "ONE", "Name of the base currency")
 	quoteName = flag.String("quote", "USDT", "Name of the quote currency")
 )
 
 func main() {
+	flag.Parse()
 	csvFile, err := os.Open(*trades)
 	if err != nil {
 		log.Fatal(err)
