@@ -72,8 +72,8 @@ func main() {
 	averageBuyPrice := totalBuyVolume / totalBuyQuantity
 	averageSellPrice := totalSellVolume / totalSellQuantity
 	fmt.Printf("Volume: %.3f %s\n", volume, *baseName)
-	fmt.Printf("Average buy price: %.8f %s\n", averageBuyPrice, *baseName)
-	fmt.Printf("Average sell price: %.8f %s\n", averageSellPrice, *baseName)
+	fmt.Printf("Average buy price: %.8f %s/%s\n", averageBuyPrice, *baseName, *quoteName)
+	fmt.Printf("Average sell price: %.8f %s/%s\n", averageSellPrice, *baseName, *quoteName)
 	fmt.Printf("Delta base: %.3f %s\n", deltaBase, *baseName)
 	fmt.Printf("Delta quote: %.3f %s\n", deltaQuote, *quoteName)
 	fmt.Printf("Effective delta quote: %.3f %s\n", effectiveDeltaQuote, *quoteName)
