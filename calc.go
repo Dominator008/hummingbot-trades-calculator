@@ -12,7 +12,7 @@ import (
 
 var (
 	trades    = flag.String("trades", "trades.csv", "Trades CSV")
-	fee       = flag.Float64("fee", 0.00036, "Fee rate")
+	fee       = flag.Float64("fee", 0.000405, "Fee rate")
 	baseName  = flag.String("base", "ONE", "Name of the base currency")
 	quoteName = flag.String("quote", "USDT", "Name of the quote currency")
 )
@@ -31,7 +31,6 @@ func main() {
 	var deltaBase float64
 	var deltaQuote float64
 	var finalPrice float64
-	var volume float64
 	var totalBuyQuantity float64
 	var totalSellQuantity float64
 	var totalBuyVolume float64
@@ -55,7 +54,6 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		volume += quantity
 		if isBuy {
 			deltaBase += quantity
 			deltaQuote -= (1.0 + *fee) * price * quantity
@@ -71,7 +69,8 @@ func main() {
 	effectiveDeltaQuote := deltaBase*finalPrice + deltaQuote
 	averageBuyPrice := totalBuyVolume / totalBuyQuantity
 	averageSellPrice := totalSellVolume / totalSellQuantity
-	fmt.Printf("Volume: %.3f %s\n", volume, *baseName)
+	fmt.Printf("Buy quantity: %.3f %s Sell quantity: %.3f %s\n", totalBuyQuantity, *baseName, totalSellQuantity, *baseName)
+	fmt.Printf("Buy volume: %.3f %s Sell volume: %.3f %s\n", totalBuyVolume, *quoteName, totalSellVolume, *quoteName)
 	fmt.Printf("Average buy price: %.8f %s/%s\n", averageBuyPrice, *baseName, *quoteName)
 	fmt.Printf("Average sell price: %.8f %s/%s\n", averageSellPrice, *baseName, *quoteName)
 	fmt.Printf("Delta base: %.3f %s\n", deltaBase, *baseName)
